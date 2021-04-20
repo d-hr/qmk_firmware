@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2021 Jirou
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,13 +13,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
 
-#pragma once
+// Defines names for use in layer keycodes and the keymap
+enum layer_names {
+    _BASE
+};
 
-#include "quantum.h"
 
-#if defined(KEYBOARD_xelus_pachi_rev1)
-    #include "rev1.h"
-#elif defined(KEYBOARD_xelus_pachi_mini_32u4)
-    #include "mini_32u4.h"
-#endif
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    
+    [_BASE] = LAYOUT(
+        KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F11,
+		KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F12
+    )
+};
+
+
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+}

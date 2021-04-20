@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2021 Jirou
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,18 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_xelus_pachi_rev1)
-    #include "rev1.h"
-#elif defined(KEYBOARD_xelus_pachi_mini_32u4)
-    #include "mini_32u4.h"
-#endif
+/* This is a shortcut to help you visually see your layout.
+ *
+ * The first section contains all of the arguments representing the physical
+ * layout of the board and position of the keys.
+ *
+ * The second converts the arguments into a two-dimensional array which
+ * represents the switch matrix.
+ */
+#define LAYOUT( \
+    k00, k01, k02, k03, k04, k05, \
+    k10, k11, k12, k13, k14, k15    \
+) { \
+    { k00, k01, k02, k03, k04, k05 }, \
+    { k10, k11, k12, k13, k14, k15 }  \
+}

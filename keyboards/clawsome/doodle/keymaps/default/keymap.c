@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2021 AAClawson (AlisGraveNil)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include QMK_KEYBOARD_H
 
-#include "quantum.h"
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT(
+        KC_1,    KC_2,    KC_3,
+        KC_4,    KC_5,    KC_6
+    ),
 
-#if defined(KEYBOARD_xelus_pachi_rev1)
-    #include "rev1.h"
-#elif defined(KEYBOARD_xelus_pachi_mini_32u4)
-    #include "mini_32u4.h"
-#endif
+};

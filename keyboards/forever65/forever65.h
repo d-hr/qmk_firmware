@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2021 zvecr<git@zvecr.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,13 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
 #include "quantum.h"
-
-#if defined(KEYBOARD_xelus_pachi_rev1)
-    #include "rev1.h"
-#elif defined(KEYBOARD_xelus_pachi_mini_32u4)
-    #include "mini_32u4.h"
-#endif

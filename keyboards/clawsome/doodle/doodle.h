@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2021 AAClawson (AlisGraveNil)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,10 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_xelus_pachi_rev1)
-    #include "rev1.h"
-#elif defined(KEYBOARD_xelus_pachi_mini_32u4)
-    #include "mini_32u4.h"
-#endif
+#define LAYOUT( \
+    K00, K01, K02,   \
+    K10, K11, K12    \
+) { \
+    { K00,   K01,   K02   }, \
+    { K10,   K11,   K12   } \
+}
