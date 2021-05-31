@@ -206,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,     KC_Q, KC_W,    KC_E,    KC_R,             KC_T,   KC_Y,            KC_U,             KC_I,    KC_O,        DE_HASH,     KC_BSPC,
     TD(SPL_HE), KC_A, KC_S,    KC_D,    KC_F,             KC_G,   KC_H,            KC_J,             KC_K,    KC_L,        KC_P,        KC_ENT,
     KC_LSBO,    KC_Z, KC_X,    KC_C,    KC_V,             KC_B,   KC_N,            KC_M,             DE_COMM, DE_DOT,      DE_MINS,     KC_RSBC,
-    KC_LCSO,    FKEY, KC_LGUI, KC_LACO, LT(LOWER,KC_SPC), KC_SPC, LT(ANUM,KC_SPC), LT(RAISE,KC_SPC), KC_RACC, TD(TD_SLBS), TD(TD_DRAM), KC_RCSC
+    KC_LCSO,    FKEY, KC_LGUI, KC_C, LT(LOWER,KC_SPC), KC_SPC, LT(ANUM,KC_SPC), LT(RAISE,KC_SPC), KC_RACC, TD(TD_SLBS), TD(TD_DRAM), KC_RCSC
 ),
 [_LOWER] = LAYOUT_planck_grid(
     DE_CIRC,  S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5), S(KC_6),    TD(TD_UE), S(KC_8), TD(TD_OE), S(KC_0), _______,

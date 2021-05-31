@@ -1,0 +1,3 @@
+# Keymap by David Hülsmeier
+
+# port from my planck to kyria, first try shows some errors --> a and b do something very stange...
