@@ -29,13 +29,12 @@ enum layers {
 };
 
 enum kyria_keycodes {
-  QWERTY = SAFE_RANGE,
-  KC_LSBO, // left shift bracket open (
+  KC_LSBO = SAFE_RANGE, // left shift bracket open (
   KC_RSBC, // right shift bracket close )
   KC_LCSO, // right control square bracket open [
   KC_RCSC, // right control square bracket close ]
   KC_LACO, // right alt curly bracket open {
-  KC_RACC, // right alt curly bracket close }
+  KC_RACC  // right alt curly bracket close }
 };
 
 #define LOWER _LOWER    // to lower
@@ -139,8 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       TD(SPL_HE),  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                                                             KC_Y,    KC_U,    KC_I,    KC_O,    DE_HASH, KC_ENT,
       KC_LSBO,     KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                                                             KC_H,    KC_J,    KC_K,    KC_L,    KC_P,    KC_RSBC,
       KC_LCSO,     KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,   DE_LABK, TD(TD_SLBS),              TD(TD_DRAM), DE_RABK,  KC_N,    KC_M,    DE_COMM, DE_DOT,  DE_MINS, KC_RCSC,
-                             KC_LGUI, KC_LCSO, LT(LOWER, KC_TAB), KC_SPC, KC_LACO,        KC_RACC, LT(ANUM, KC_SPC),  RAISE,  KC_RCSC,  FKEY
-                             //KC_LGUI, KC_LCSO, KC_LACO, KC_SPC, LT(LOWER, KC_TAB),      LT(RAISE, DES_PIPE),  LT(ANUM, KC_SPC),     KC_RACC,  KC_RCSC,  FKEY
+                             KC_LGUI, KC_LACO, LT(LOWER, KC_TAB), KC_SPC, DE_LABK,        DE_RABK, LT(ANUM, KC_SPC),  MO(_RAISE),  KC_RACC,  FKEY
     ),
 /*
  * Lower Layer: Symbols
@@ -177,8 +175,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_RAISE] = LAYOUT(
-      _______, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  XXXXXXX, _______,
-      _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, _______,
+      _______, XXXXXXX, KC_HOME, KC_WH_U, KC_END,  KC_PGUP,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  XXXXXXX, _______,
+      _______, XXXXXXX, KC_WH_L, KC_WH_D, KC_WH_R, KC_PGDN,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, _______,
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
