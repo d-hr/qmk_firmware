@@ -23,9 +23,9 @@ enum layers {
     _QWERTY = 0,
     _LOWER,
     _RAISE,
-    _ADJUST,
     _ANUM,
     _FKEY,
+    _ADJUST
 };
 
 enum kyria_keycodes {
@@ -38,7 +38,6 @@ enum kyria_keycodes {
 };
 
 #define LOWER _LOWER    // to lower
-#define NUMP  _NUMP     // to nump
 #define ANUM  _ANUM     // to anum
 #define RAISE _RAISE    // to higher
 #define FKEY  MO(_FKEY) // momentary to FKEY
@@ -135,10 +134,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-      TD(SPL_HE),  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                                                             KC_Y,    KC_U,    KC_I,    KC_O,    DE_HASH, KC_ENT,
-      KC_LSBO,     KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                                                             KC_H,    KC_J,    KC_K,    KC_L,    KC_P,    KC_RSBC,
-      KC_LCSO,     KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,   DE_LABK, TD(TD_SLBS),              TD(TD_DRAM), DE_RABK,  KC_N,    KC_M,    DE_COMM, DE_DOT,  DE_MINS, KC_RCSC,
-                             KC_LGUI, KC_LACO, LT(LOWER, KC_TAB), KC_SPC, DE_LABK,        DE_RABK, LT(ANUM, KC_SPC),  MO(_RAISE),  KC_RACC,  FKEY
+      KC_TAB,      KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                                                             KC_Y,    KC_U,    KC_I,    KC_O,    DE_HASH, KC_BSPC,
+      TD(SPL_HE),  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                                                             KC_H,    KC_J,    KC_K,    KC_L,    KC_P,    KC_ENT,
+      KC_LSBO,     KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,   FKEY, TD(TD_SLBS),                  TD(TD_DRAM), KC_ENT,  KC_N,    KC_M,    DE_COMM, DE_DOT,  DE_MINS, KC_RSBC,
+                             KC_LGUI, KC_LCSO, LT(LOWER, KC_SPC), KC_SPC, KC_LACO,        KC_RACC, LT(ANUM, KC_SPC),  LT(RAISE, KC_SPC),  KC_RCSC,  KC_RGUI
     ),
 /*
  * Lower Layer: Symbols
