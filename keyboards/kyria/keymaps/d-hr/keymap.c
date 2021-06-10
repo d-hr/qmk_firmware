@@ -18,6 +18,7 @@
 #include "action.h"
 #include "process_keycode/process_tap_dance.h"
 #include "keymap_german.h"
+#include "keymap_jp.h"
 
 enum layers {
     _QWERTY = 0,
@@ -57,6 +58,7 @@ enum {
     TD_OE,
     TD_SLBS,
     TD_DRAM,
+    TD_ATEN,
 };
 
 static uint16_t space_cadet_timer = 0;
@@ -102,6 +104,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_OE]   = ACTION_TAP_DANCE_DOUBLE(S(KC_9), DE_ODIA),
     [TD_SLBS] = ACTION_TAP_DANCE_DOUBLE(DE_SLSH, DE_BSLS),
     [TD_DRAM] = ACTION_TAP_DANCE_DOUBLE(DE_DLR, DE_AMPR),
+    [TD_ATEN] = ACTION_TAP_DANCE_DOUBLE(DE_AT, KC_APP),
     [SPL_HE]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL,spl_hyes_finished, spl_hyes_reset),
 };
 
@@ -123,37 +126,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: QWERTY
  *
  * ,-------------------------------------------.
- * |Hyp/Esc |   Q  |   W  |   E  |   R  |   T  |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |
  * |--------+------+------+------+------+------|
- * | Shft/( |   A  |   S  |   D  |   F  |   G  |
+ * |Hyp/Esc |   A  |   S  |   D  |   F  |   G  |
  * |--------+------+------+------+------+------+-------------.
- * | Ctrl/[ |   Z  |   X  |   C  |   V  |   B  | Fkey |  XX  |
+ * | Shft/( |   Z  |   X  |   C  |   V  |   B  | Fkey |  @   |
  * `----------------------+------+------+------+------+------|
- *                        | GUI  | Alt  | Lower| Space| Tab  |
- *                        |      | {    | Space|      |      |
+ *                        | Super| Alt  | Lower| Space| Ctrl |
+ *                        |      | {    | Space|      | [    |
  *                        `----------------------------------'
  *
  *                        ,-------------------------------------------.
- *                        |   Y  |   U  |   I  |   O  |   #  | Enter  |
+ *                        |   Y  |   U  |   I  |   O  |   #  | Pipe   |
  *                        |------+------+------+------+------+--------|
- *                        |   H  |   J  |   K  |   L  |   P  | Shft/) |
+ *                        |   H  |   J  |   K  |   L  |   P  | Sup/Ent|
  *          ,-------------+------+------+------+------+------+--------|
- *          | //\  |  $/& |   N  |   M  |   ,  |   .  |   -  | Ctrl/] |
+ *          | //\  |  $/& |   N  |   M  |   ,  |   .  |   -  | Shft/) |
  *          |------+------+------+------+------+----------------------'
- *          | Enter| Space| Space| AltGr|  XX  |
- *          |      | ANUM | Raise| }    |  XX  |
+ *          | Ctrl | Space| Space| AltGr|  XX  |
+ *          |    ] | ANUM | Raise|     }|  XX  |
  *          `----------------------------------'
  */
     [_QWERTY] = LAYOUT_stack(
-      TD(SPL_HE),  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,
-      KC_LSBO,     KC_A,   KC_S,    KC_D,    KC_F,     KC_G,
-      KC_LCSO,     KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,    FKEY,   KC_BSPC,
-                           KC_LGUI, KC_LACO, LT(LOWER, KC_SPC), KC_SPC, KC_TAB,
+      KC_TAB,      KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,
+      TD(SPL_HE),  KC_A,   KC_S,    KC_D,    KC_F,     KC_G,
+      KC_LSBO,     KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,    FKEY,   TD(TD_ATEN),
+                           KC_LGUI, KC_LACO, LT(LOWER, KC_SPC), KC_SPC, KC_LCSO,
 //
-                                       KC_Y,     KC_U,     KC_I,     KC_O,     DE_HASH, KC_ENT,
-                                       KC_H,     KC_J,     KC_K,     KC_L,     KC_P,    KC_RSBC,
-       TD(TD_SLBS), TD(TD_DRAM),       KC_N,     KC_M,     DE_COMM,  DE_DOT,   DE_MINS, KC_RCSC,
-       KC_ENT,      LT(ANUM, KC_SPC),  LT(RAISE, KC_SPC),  KC_RACC,  KC_RGUI
+                                        KC_Y,     KC_U,     KC_I,     KC_O,     DE_HASH, DE_PIPE,
+                                        KC_H,     KC_J,     KC_K,     KC_L,     KC_P,    RGUI_T(KC_ENT),
+       TD(TD_SLBS),  TD(TD_DRAM),       KC_N,     KC_M,     DE_COMM,  DE_DOT,   DE_MINS, KC_RSBC,
+       KC_RCSC,      LT(ANUM, KC_SPC),  LT(RAISE, KC_SPC),  KC_RACC,  KC_F2
     ),
 /*
  * Lower Layer: Symbols
@@ -217,9 +220,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *          `----------------------------------'
  */
     [_RAISE] = LAYOUT_stack(
-      _______, XXXXXXX, KC_HOME, KC_WH_U, KC_END,  KC_PGUP,
-      _______, XXXXXXX, KC_WH_L, KC_WH_D, KC_WH_R, KC_PGDN,
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,
+      _______, XXXXXXX, DE_LPRN, XXXXXXX, DE_RPRN, XXXXXXX,
+      _______, XXXXXXX, DE_LCBR, XXXXXXX, DE_RCBR, XXXXXXX,
+      _______, XXXXXXX, DE_LBRC, XXXXXXX, DE_RBRC, XXXXXXX, _______, _______,
                                  _______, _______, _______, _______, _______,
 //
                         KC_PGUP, KC_HOME, KC_UP,   KC_END,  XXXXXXX, _______,
@@ -462,7 +465,7 @@ static void render_qmk_logo(void) {
 static void render_status(void) {
     // QMK Logo and version information
     render_qmk_logo();
-    oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
+    oled_write_P(PSTR("Kyria rev1.4\n\n"), false);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -478,6 +481,12 @@ static void render_status(void) {
             break;
         case _ADJUST:
             oled_write_P(PSTR("Adjust\n"), false);
+            break;
+        case _ANUM:
+            oled_write_P(PSTR("Numbers\n"), false);
+            break;
+        case _FKEY:
+            oled_write_P(PSTR("F-Key\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
