@@ -41,3 +41,4 @@
 #define TAPPING_TERM 175 // https://docs.qmk.fm/#/feature_tap_dance
 #define SHORT_TAPPING_TERM 100 // https://docs.qmk.fm/#/feature_tap_dance
 
+#define CAPSWORD_USE_SHIFT

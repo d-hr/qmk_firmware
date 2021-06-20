@@ -4,3 +4,4 @@ RGBLIGHT_ENABLE = no #yes      # Enable keyboard RGB underglow
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 BOOTLOADER = atmel-dfu
+SRC += features/casemodes.c

@@ -18,6 +18,7 @@
 #include "action.h"
 #include "process_keycode/process_tap_dance.h"
 #include "keymap_german.h"
+#include "features/casemodes.h"
 
 enum layers {
     _QWERTY = 0,
@@ -35,7 +36,9 @@ enum kyria_keycodes {
   KC_LCSO, // right control square bracket open [
   KC_RCSC, // right control square bracket close ]
   KC_LACO, // right alt curly bracket open {
-  KC_RACC  // right alt curly bracket close }
+  KC_RACC, // right alt curly bracket close }
+  CAPSWORD,
+  SNAKECASE,
 };
 
 #define LOWER _LOWER    // to lower
@@ -221,9 +224,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *          `----------------------------------'
  */
     [_RAISE] = LAYOUT_stack(
-      _______, XXXXXXX, DE_LPRN, XXXXXXX, DE_RPRN, XXXXXXX,
-      _______, XXXXXXX, DE_LCBR, XXXXXXX, DE_RCBR, XXXXXXX,
-      _______, XXXXXXX, DE_LBRC, XXXXXXX, DE_RBRC, XXXXXXX, _______, _______,
+      _______, XXXXXXX, DE_LPRN, XXXXXXX,   DE_RPRN, XXXXXXX,
+      _______, XXXXXXX, DE_LCBR, SNAKECASE, DE_RCBR, XXXXXXX,
+      _______, XXXXXXX, DE_LBRC, CAPSWORD,  DE_RBRC, XXXXXXX, _______, _______,
                                  _______, _______, _______, _______, _______,
 //
                         KC_PGUP, KC_HOME, KC_UP,   KC_END,  XXXXXXX, _______,
@@ -329,7 +332,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    // Process case modes
+    if (!process_case_modes(keycode, record)) {
+        return false;
+    }
+    switch (keycode) {
     // shift ()
     case KC_LSBO: {
       if (record->event.pressed) {
@@ -440,7 +447,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_mods(MOD_BIT(KC_RALT));
       }
       return false;
-  }
+    }
+    case CAPSWORD:
+        if (record->event.pressed) {
+            enable_caps_word();
+        }
+        return false;
+    case SNAKECASE:
+        if (record->event.pressed) {
+            enable_xcase_with(DE_UNDS);
+        }
+        return false;
   }
   return true;
 }
@@ -541,3 +558,32 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 #endif
+
+// Returns true if the case modes should terminate, false if they continue
+// Note that the keycodes given to this function will be stripped down to
+// basic keycodes if they are dual function keys. Meaning a modtap on 'a'
+// will pass KC_A rather than LSFT_T(KC_A).
+// Case delimiters will also not be passed into this function.
+bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
+    switch (keycode) {
+        // Keycodes to ignore (don't disable caps word)
+        case KC_A ... KC_Z:
+        case KC_1 ... KC_0:
+        case DE_MINS:
+        case DE_UNDS:
+        case KC_BSPC:
+        case CAPSWORD:
+        case SNAKECASE:
+            // If mod chording disable the mods
+            if (record->event.pressed && (get_mods() != 0)) {
+                return true;
+            }
+            break;
+        default:
+            if (record->event.pressed) {
+                return true;
+            }
+            break;
+    }
+    return false;
+}
