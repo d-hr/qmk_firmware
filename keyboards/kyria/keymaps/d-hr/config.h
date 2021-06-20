@@ -16,6 +16,9 @@
 
 #pragma once
 
+// used to define which side is the master (left by default)
+#define MASTER_LEFT
+
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
 #endif

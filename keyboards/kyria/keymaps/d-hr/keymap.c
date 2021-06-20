@@ -18,7 +18,6 @@
 #include "action.h"
 #include "process_keycode/process_tap_dance.h"
 #include "keymap_german.h"
-#include "keymap_jp.h"
 
 enum layers {
     _QWERTY = 0,
@@ -26,7 +25,8 @@ enum layers {
     _RAISE,
     _ANUM,
     _FKEY,
-    _ADJUST
+    _ADJUST,
+    _GAMEPAD
 };
 
 enum kyria_keycodes {
@@ -42,6 +42,7 @@ enum kyria_keycodes {
 #define ANUM  _ANUM     // to anum
 #define RAISE _RAISE    // to higher
 #define FKEY  MO(_FKEY) // momentary to FKEY
+#define TG_GMPD TG(_GAMEPAD) // toggels gamepad layer
 
 /*
 typedef struct {
@@ -241,6 +242,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, DE_CIRC,  DE_PLUS, _______, _______, _______, _______,
       _______, _______, _______, _______, _______
     ),
+    [_GAMEPAD] = LAYOUT_stack(
+        KC_TAB,  KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,
+        KC_ESC,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,
+        KC_LSFT, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,   _______, _______,
+                                   _______, KC_LALT, KC_SPC, KC_SPC,  KC_LCTL,
+//
+                          _______, _______, _______, _______, _______, _______,
+                          _______, _______, _______, _______, _______, _______,
+        _______, TG_GMPD, _______, _______, _______, _______, TG_GMPD, _______,
+        _______, _______, _______, _______, _______
+    ),
     [_FKEY] = LAYOUT_stack(
       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
       _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,
@@ -249,7 +261,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
                         KC_F6,   KC_F7,   KC_F8,    KC_F9,   KC_F10,  _______,
                         KC_F16,  KC_F17,  KC_F18,   KC_F19,  KC_F20,  _______,
-      _______, _______, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, _______,
+      _______, _______, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, TG_GMPD, _______,
       _______, _______, _______, _______, _______
     ),
 /*
