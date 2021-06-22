@@ -19,6 +19,8 @@
 #include "process_keycode/process_tap_dance.h"
 #include "keymap_german.h"
 #include "features/casemodes.h"
+#include <stdio.h> // wpm
+char wpm_str[10]; // wpm
 
 enum layers {
     _QWERTY = 0,
@@ -494,43 +496,47 @@ static void render_qmk_logo(void) {
 static void render_status(void) {
     // QMK Logo and version information
     render_qmk_logo();
-    oled_write_P(PSTR("Kyria rev1.4\n\n"), false);
+    // oled_write_P(PSTR("Kyria rev1.4\n\n"), false);
 
     // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write_P(PSTR("\n Default "), false);
             break;
         case _LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
+            oled_write_P(PSTR("\n Lower   "), false);
             break;
         case _RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
+            oled_write_P(PSTR("\n Raise   "), false);
             break;
         case _ADJUST:
-            oled_write_P(PSTR("Adjust\n"), false);
+            oled_write_P(PSTR("\n Adjust  "), false);
             break;
         case _ANUM:
-            oled_write_P(PSTR("Numbers\n"), false);
+            oled_write_P(PSTR("\n Numbers "), false);
             break;
         case _FKEY:
-            oled_write_P(PSTR("F-Key\n"), false);
+            oled_write_P(PSTR("\n F-Key   "), false);
+            break;
+        case _GAMEPAD:
+            oled_write_P(PSTR("\n Game    "), false);
             break;
         default:
-            oled_write_P(PSTR("Undefined\n"), false);
+            oled_write_P(PSTR("\n t(-_-t) "), false);
     }
 
     // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+    // uint8_t led_usb_state = host_keyboard_leds();
+    // oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
+    // oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
+    // oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        sprintf(wpm_str, "... WPM: %03d", get_current_wpm());
+        oled_write(wpm_str, false);
     } else {
         render_kyria_logo();
     }
